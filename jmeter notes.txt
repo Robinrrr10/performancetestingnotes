@@ -129,7 +129,68 @@ Vew Results tree and Assertion Result will take lot of memory. So while running 
 
 Tutorial 4: Listeners
 -----------------------
+Listeners will have resul data of performance testing.
 
+Below are the most commonly used listeners
+1. View result in table:
+
+This will response information of each and every api call. It will time, thread name with loop count with user count, it will show sampler label
+It will show sample time which is response time
+It will show status, bytes size of the response
+It will show latency. Latency is the time between request to first byte recived in response
+It will show connection time as well. Time when it connect with server
+
+
+2. View result tree:
+
+This will show information about request and response
+It will show all details of request and response
+It will show request headers, request body, status code, response headers, response body etc
+We can verify request and response here. we can see what exactly is send in request and what exactly we recived in response
+It will consume more memory. So avoid when using with huge load
+
+3. Aggregate report:
+
+This will combine and show the result
+It will average response time
+It will show median (middle) response time
+It will show average response time of 90% percentile. If 1000 request are there, it will show average response time of (900 to 909)
+It will show average response time of 95% percentile. If 1000 request are there, it will show average response time of (950 to 959)
+It will show average response time of 99% percentile. If 1000 request are there, it will show average response time of (990 to 999)
+It will show minimum response time
+It will show maximum response time
+It will show error percentage
+It will show throughput. How request per sec has been send
+It will show how many kb per sec has been received
+
+
+4. Graph result:
+
+We see graph resut when time goes on.
+It will show data, average, media, deviation, throughput
+It will consume more memory. so avoid using this during huge load
+
+5. Summary report:
+
+This will have information of average respone time.
+Min and max response time.
+std deviation
+Error percentage.
+Through put.
+kb/sec and avg bytes per sec.
+
+
+6. Simple data writer:
+
+Important: It is recommondated to only simple data writer when running with huge load
+We can select what are things we wanted to capture. We select by clicking configure button here.
+Give the file name here to add 
+
+
+All above will have file name. There we can add path of the file. So that the result will be logged in the file
+
+
+---------------------------------------------------------------------------
 
 
 
