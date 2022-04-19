@@ -1,0 +1,553 @@
+
+Jmeter tutorial:
+---------------
+----------------
+---------------
+
+Tutorial 1: Installation of jmeter
+-----------------------------------
+Pre-request:
+We need minimum java 7 or 8 to install jmeter. check jmeter page to check minimum version of java required for the version.
+
+To check java version use below command:
+java -version
+
+if not install, then install java.   
+
+
+Then download jmeter from internet
+
+download zip file in binaries or you can download gtz file also
+
+Keep zip file on any location.
+Unzip it
+
+
+To start jmeter:
+
+go to jmeter folder, go to bin, then click jmeter.bat file to start   //for starting from windows
+
+go to jmeter folder, go to bin, then give sh jmeter.sh or you can give ./jmeter.sh   //for starting jmeter in mac or linux
+
+
+----------------------------------------------------------------------
+
+Tutorial 2:  Create first jmeter test
+------------------------------------
+Test plan: Will contain all configuration and elements for test
+Workbench: This is to store element temperorily
+
+
+To write the test, follow below steps:
+Start jmeter
+Create test plan
+Add thread group (users)
+Add sampler (http request)
+Add listeners
+Run the test
+
+
+Thread group  //It is to give number of users
+Thread group will contain below
+number of Thread(User): Here we will give how many users. basically how many request
+Ramup period(in seconds): Duration of the performance testing. We will give in seconds
+Loop count or Forever : Here will give how many times above testing should iterate. We can select forever if we dont want to specify end time
+We can also specify whether the test should continue or stop if any failures or error
+
+Right click on Thread group and click add and then select sampler   //add -> sampler -> http request
+Sampler   //It is for configuring request
+Sampler->Http request   //We can select any sampler. Mostly we will use http request
+Http request sampler will have below:     //This is used to configuring http request
+server ip or host: Give hostname of ip here     //Dont give protocol here
+port: Give port number here. By default it will be 80 if we dont give
+protocol: Give http or https here. By default it will take http
+method: Give method name of any GET or POST or PUT or DELETE etc
+path: Give the endpoint which are after hostname
+
+
+Listeners //Right click on Thread group and select add and then listener  //Add -> Listener
+There different listeners available.   //Listeners are used to listen the response
+We can select any listeners.
+Here will select view result in table   //Add -> Listener -> view result in table
+Will also select view result in tree    //Add -> Listener -> view result in tree
+
+view result in table:
+Sample    //It is just a serial number of request
+Start time   //Request initated time
+Thread name   //Thread name with user detail
+Label          //Request name
+Sample time(ms)  //Response time. Time when request has been send and the response has been received 
+Status        //Status of response. It is based on assertion if assertion is added. If not  it will check for 200 series
+Bytes          //Bytes size of the response
+Latency         //Time when request has been send and the first byte of the response has been received. 
+Connect time(ms)  //Time taken to connect with backend
+
+
+view result in tree:
+It will show details of each request and response
+It will headers, status code, body etc
+
+
+Running the test. We can use any of the three way to run the test:
+Way 1: Right click on Thread group -> Start
+Way 2: Click on run option -> start
+Way 3: Click on play icon to start
+
+To clear existing listener data:
+clear       //This will clear only the listener data of selected listener
+clear all    //This will clear all listener data
+
+To stop the test:
+stop - This is stop test forcefully
+shutdown - This will stop the current running thread and then it will stop
+
+
+In right top left corner, it will show how many request has been called etc
+
+----------------------------------------------------------------------------------
+
+Tutorial 3: Assertion:
+---------------------
+Assertion are used to validate something in response.
+
+To add assertion -> Right click on thread -> Add -> Assertion -> then select the asserion which we need to add
+If assetion pass, result will be green. if fails, result  will be in red
+We can also add assertion result to make the test pass or fail based on assertion. Assertion Result will be available in listener. This will give details of what are the assertion fails.
+
+Below are the most commonly used assertion
+Response Assertion  - Used to validate response code or response body etc. We will give what needs to validate. We will give condition Whether it should be equal or not equal or contains etc. 
+Duration Assertion  - Used to validate response time. We will give value in millisec. Response time should be less than given value. else it will fail
+Size assertion     - Used to check the size(byte size) of the response. Give the byte size and condition for validating
+Html assertion     - Used to check the errors and warnings in html. We give number of errors and warnings threshold. If the error or warnings goes beyond the threshold, it will fail. We can also add path of the file to log error or warning if any erro/warning
+Xml assertion      - This will check whether the response is valid xml or not
+Xpath assertion    - This is used to validate some element or the value using xpath
+
+
+Vew Results tree and Assertion Result will take lot of memory. So while running load, better disable this
+
+----------------------------------------------------------------------
+
+Tutorial 4: Listeners
+-----------------------
+
+
+
+
+
+--------------------------------------------------------------------------
+
+Tutorial - 11
+-------------
+-------------
+
+running jmeter script in non-GUI mode
+--------------------------------------
+
+go to jmeter directory
+
+jmeter.bat -n -t pathofthejmeterscript -l pathoftheoutput     //instread of jmeter.bat we can use jmeter also                          //output should be in .csv 
+
+
+-n     is for non GUI mode
+-t     is for path of the jmeter script
+-l     is for out of the result
+
+Eg:
+
+jmeter -n -t C:\Users\dsr\Desktop\jmeterscript\myscript\sample.jmx -l C:\Users\dsr\Desktop\jmeterscript\result\myresult.csv
+
+
+
+-----------------------------------------------------------------------------------
+
+
+running jmeter script in non-gui mode and generating html reports
+
+
+jmeter -n -t pathofthejmeterscript -l pathoftheoutput -e -o pathofthehtmlreport
+
+
+-e   is for generating the html report
+-o   is for giving the path of the html report
+
+Eg:
+
+jmeter -n -t C:\Users\dsr\Desktop\jmeterscript\myscript\sample.jmx -l C:\Users\dsr\Desktop\jmeterscript\result2\myresult.csv -e -o C:\Users\dsr\Desktop\jmeterscript\htmlreport
+
+--------------------------------------------------------------------------------------
+
+to change any thing in report or html report
+--------------------------------------------
+
+reportgenerator.properties  under bin folder
+
+user.properties    under bin folder
+
+
+we can edit according to our needs
+
+---------------------------------------------------------------------------------------
+
+to change the old result .csv file into html report
+---------------------------------------------------
+
+
+jmeter -g pathoftheresultcsvfile -o pathtocreatehtmlreport
+
+-g   is the path of the result .csv file
+-o    is the path of the html  to generate
+
+Eg:
+
+jmeter -g C:\Users\dsr\Desktop\jmeterscript\result\myresult.csv -o C:\Users\dsr\Desktop\jmeterscript\result\html
+
+
+---------------------------------------------------------------------------------------
+
+
+Tutorial - 12
+-------------
+-------------
+
+
+plugin
+------
+
+plugins can be added by adding the jar file in jmeter../lib/ext/ 
+
+
+jmeter plugin manager   //is also the jar file and it is used to install plugins, upgrade plugins and remove plugins etc
+
+after adding this we can find this on options->pulgin manager in jmeter
+using plugin managere also we can add the plugins
+
+
+
+in internet we can find many many plugins
+
+
+
+------------------------------------------------------------------------------------------------
+
+
+Tutorial-13
+-----------
+-----------
+
+
+CSV data set config
+-------------------
+used to read the input data from the csv file
+
+
+${headingcellname}   //heading cell name 
+
+Eg:
+${accountno}                 //hear my heading cell name was accountno . so iam giving here
+
+
+Add->config set->CSV Data Set Config
+Filename //we should give the path of the csv fille    //check whether the excel file is saved in csv or not.
+variable name   //give the heading of the each column   //Eg: accountno,dataofbirth  
+ignorefirstline              //give true only if the above variable is given
+delimeter              //give how the it is seperated 
+Allow quoted date        //if any quotes are used in csv file use this
+Recycle on EOF    //want to do it again   //EOF ent of file
+stop thread on EOF   //have to stop the thread at the end of the file
+sharing more    //have to share in all threads or only in this thread
+
+
+
+
+default it will read only the first row of the csv file  //next row of the heading
+if we increase the loop, according to each loop it will take one by one the value of next cell
+
+
+increase the loop according to number of input
+
+
+
+
+---------------------------------------------------------------------------------------------------
+
+
+Tutorial-14
+-----------
+-----------
+
+
+
+Function and Variable
+---------------------
+
+Function
+--------                 //there are many function which are used for many purpost. Eg: __property function is used to fetch the property file
+
+Syntax:
+
+${__functionName}            //function without the variable
+
+
+
+${__functionName(Variable)}              //function with variable
+
+${__functionName(var1,var2,var3,..)}      //function with more variable
+
+
+                                  //variable and functions are case sensitive   //and the name is camelCasing
+                                  //we can give functions and variable in any request or threads etc or any
+
+Variable              //variable is used to store the value   //variable can be used only inside one thread. variable of one thread cannot be used by other thread
+--------
+
+Syntax:
+
+${variableName}
+
+
+
+
+Types of function
+-----------------
+${__log(ValueOrVariablename)}         //we can see the log while performing //this will be printed in result in table- thread name
+
+Eg:
+${__log("Hello word")}
+
+
+${__time(timeformat)}            //used to log the time while performaing  //this will pring the time. we can change time format according to we
+Eg:
+${__time(yyyy-mm-dd hh:mm:ss)}
+
+
+${__threadNum}          //used to print thread number
+Eg:
+${__threadNum}
+
+
+${__intSum(value1,value2,resulttobestoreinvariable)}    //used to add two value and store in third variable
+Eg:
+${__intSum(3,2,result)}                   //here 3 and 2 are added and stored in result    //we can use ${result} in other also
+
+
+
+
+//there are many functions
+
+options->function helper dialog box -> choose the function -> help    //to know about the any functions 
+
+
+
+
+--------------------------------------------------------------------------------------------
+
+
+Tutorial-15
+----------
+----------
+
+
+Realistic performance testing
+-----------------------------
+
+
+          //jp@gc stepping thread group   - is used to perform realistic load testing
+
+option->plugin manager->jpgc-standard set
+
+Add->Threads->jp@gc stepping thread group
+
+
+This group will start: theads      //How many number of threads needed
+First,wait for: seconds             //initially how time it should wait before starting first threadd
+Then start:  threads                //then how many thread it should initiate
+next add: threads every: sec       //then how many number thread it should initiate for how many seconds
+using rampup:  sec       //in how many sec the above should continously. //if null or zero it will initiate at request threads at once. if the value is given, then according to the value it will initiate the above given add threads one by one in ramup time
+hold load for:    sec  //after all these time how much time it should wait
+finally stop: threads every: sec    //how to stop. in how many threads should should stop in how many sec
+
+
+//below diagram in thread will give detail of the thread and the time according to our value
+
+
+This group will start 30   //total 30 threads     
+First,wait for  2           //initially wait for 2 sec           
+Then start  10           //after 2 sec initiate 10 request             
+next add:5 threads every:4 sec     //then initiate 5 thread in every 4 sec    
+using rampup :2     //the above 5 threads should initiated in every 2 sec of above 4 sec      
+hold load for:3       //after that wait for 3 sec 
+finally stop:15 threads every:2 sec   //then stop 15 threads in every 2 sec
+
+------------------------------------------------------------------------------------
+
+Tutorial - 16
+--------------
+--------------
+
+Timer   //used for waiting time
+-----
+
+Contant timer    //for certain time and then after the time it will generate 
+                  //it will be on milli sec  1000=1sec
+                   //if contant time is added in particular request. it will wait for that time and then only it will send
+                    //if it parent or parents parent also contains constant timer then it should wait for the whole time
+
+
+
+unifor random timer    // this will be random value between given times
+random Delay max
+constant delay offset
+
+//time will be between the below formula
+
+
+
+fomula:
+
+0.x * random dely + constant delay offset         //x will be between 0 to 9
+
+-------------------------------------------------------------------------------
+
+
+Tutorial-17
+-----------
+-----------
+
+changing value in url/parameter using taking the from csv file
+ftp
+
+
+ftp will allow put only one name per request
+
+we can give different  name for each request or for bulk
+
+
+
+------------------------------------------------------------------------------------------------
+
+
+
+Tutorial-18
+-----------
+-----------
+
+scheduler       //used to run the total threads with in given duration
+---------
+Thread group -> tick scheduler->
+duration             //give how many seconds the thread should run    //totat time the thread should run
+startup delay     //the thread should start after the time
+
+run performance test sequencially
+---------------------------------
+
+to run the thread one by one
+testplan - >tick run test group consecuently     //to run the thread in order
+
+
+this will run the first thread and once completed then it will run the next thread
+
+
+run website sequentially
+
+
+thread start delay
+------------------
+sequencial delay
+
+in thread-> tick schedule - >start delay               //give how much sec letter the thread should start  //if we give 10 then that thread will start after 10 sec only
+
+---------------------------------------------------------------------------------------------------------
+
+
+Tutorail - 19
+-------------
+-------------
+correalation (regular expression extractor)        //this is used to get the value from the response of the request and use as the variable in another request etc
+
+                                                    //we will mainly use to get session and id and whole process in web page
+
+request->post procession -> regular expression extractor
+
+name of created variable:  myvariable     //assign new variable 
+Regular expression:  <a href="(.*?)">			//give regular expression here to take as the variable                  //regexr.com for details of regular expression
+Template:$1$                                       //if we give more regular expression example 3 then we have to give $1$$2$$3$ etc
+Match no:                                     //number of matchs  //if it has more matches which one it should take
+default value:                                //if no matches found what it should take
+
+
+
+in view results tree in top of request green change text to Regular expression and we search regular expression in response etc to find the matches
+
+---------------------------------------------------------------------------------------------------------
+
+
+Tutorial - 20
+-------------
+-------------
+
+Templates
+
+This will be added into our project
+
+
+we can click the template icon
+
+or 
+
+File->template->select template-> create or merge
+
+we can get web templates, bean shell merge etc
+
+
+we can also create our own templates
+save your script with filaname.jmx
+copy that filename.jmx to jmeter/bin/template folder
+edit templates.xml jmeter/bin/templates/templates.xml
+
+edit this file
+
+<template isTestPlan="true">
+   
+     <name>My demo template</name>
+    
+    <fileName>/bin/templates/mytemplatedemo.jmx</fileName>
+    
+    <description><![CDATA[
+        <h1>It is my demo templatess</h1>
+     
+   <h2>Useful link</h2>       
+        ]]></description>
+  
+  </template>
+
+
+isTestPlan=true     //this will create the new template
+isTestPlan=false     //this will merge into our existing script
+
+
+-------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
