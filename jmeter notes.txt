@@ -193,7 +193,125 @@ All above will have file name. There we can add path of the file. So that the re
 ---------------------------------------------------------------------------
 
 
+Tutorial 5: How to  record UI test
+----------------------------------
 
+We have below two tool to record the test and give in meter file (.jmx)
+
+1. Badboy software
+2. Blazemeter
+
+
+Badboy software:
+It as open source software available only for windows. We can use this software to record the script by doing action in web UI.
+We can open the web page in this badboy software. then we can click the record button. Then we can do action we wanted to perform in UI.
+Once done, we can stop recording.
+Then go to File -> export to jmeter (jmx) 
+This will download the recorded script as jmx jmeter file.
+We can open the file and then we can add the listener and use
+
+
+
+Blazemeter:
+Blazemeter is the chrome plugin used to record the UI action and export as jmeter(jmx) file.
+Its free. But it required signup in bazemeter site to record in jmx file.
+We can get this  plugin by going into chrome extension store and then we can add this extension.
+Then open blazemeter and then click on record icon.
+Now we can open the web page and start with action. Once done, stop recording
+Then we can click on export to jmeter (JMX) button to download the script. // JMX button wont be enabled if we not signin. so signin is required 
+Then open the download .jmx script file in jmeter and then we can add the listener and run the test
+
+
+Jmeter itself provide option to record using below way
+http(s) test script recorder //workbench -> Add -> non script element -> http test script recorder
+Then we need to give port number. Then we need to give the same port number where the chrome is opening the page.
+But is older way. So most of them not use as this is complex
+
+----------------------------------------------------------------------
+
+Tutorial 6: How to  create a database test in jmeter
+-----------------------------------------------------
+
+IMPORTANT:  
+First download mysql connector jar from internet.
+Then go to jmeter folder and go to lib folder and paste the jar file in lib folder.
+Restart jmeter
+
+
+Under thread group add JDBC connection configuration.
+Add details of database in JDBC connection configuration.
+Give database url: Eg: jdbc:mysql://mydbhost.in:3306/mydb    Syntax: jdbc:mysql://dbhostnameorip:portnumber/databasename
+Give class name: Eg: com.mysql.jdbc.Driver    //Give connecting class name. This should match with jar liberary
+Give database username
+Give database passord
+Give any variable name.  //we will use the same name in jdbc requestto map jdbc connection configuration with jdbc request.
+
+Go to below path to add jdbc request
+Then go to add -> sampler -> JDBC request.
+Give variable name. Give same name which we given in JDBC connection configuration. So that it will pick this configuration
+Select the query type.
+Write the query in query field.
+
+Add view result table listener
+Add view  result tree listener.
+
+Run the test.
+
+To view the query and its result data, we can use view result tree listener.It will show both
+
+
+-------------------------------------------------------------------------
+
+
+Tutorial 7: To run jmeter in command line in non-GUI mode
+---------------------------------------------------------
+Non gui mode consume less memory/cpu. Where GUI mode consumes more memory
+It is recommanded to use only non gui mode whe running heavy load testing
+Running with command line is used to integrate with  jenkins/CICD
+
+Command
+sh jmeter.sh -n -t locationOfTheTestScriptFile.jmx -l locationToLogTheResult.csv      //If it is windows use jmeter.bat
+
+-n                - It is for giving non gui mode
+-t filename.jmx   - It is for giving test script file location
+-l filename.csv   - It is for giving csv file to log the result. We should have empty  file before that.
+
+Eg:
+sh jmeter.sh -n -t /Users/robin/myscript.jmx -l /Users/robin/result.csv                  //We should have empty result.csv file
+
+This will run the load testing using jmeter in non GUI mode
+
+
+Other commands:
+
+sh jmeter.sh -h   //This will show details of each commands
+sh jmeter.sh -?   //This will show all available commands
+
+
+----------------------------------------------------------------------------
+
+
+Tutorial 8: How to test FTP upload and download
+-----------------------------------------------
+FTP is a file transfer protocol. Used mostly for transfering of file.
+
+To add FTP request,
+Go to add -> Sampler -> FTP request
+
+Then give server name or ip of ftp server
+User name and password of FTP server
+If wanted to fetch or download select get(RETR)
+If we wanted to upload select select put(STOR)
+Check use binnary mode only if the file is image, video or zip etc
+Check save file in response if wanted to save the response. but it will consume more memory. not recommanded when doing heavy load testing
+Remote file: Give filename along with path which we wanted to copy or upload Eg: /allfiles/myfile.txt
+Local file: Give filename along with path which we wanted to copy or upload  Eg: /Users/robin/myfile.txt
+
+We can verify the result in view result tree. It will show response only if the save response is checked
+
+We also have FTP request default, this we can use if we know we are going to use same ftp server for all ftp calls
+
+//To manually transfering we use tool like filezila  //We can double verify by this tool whether file has been copied or upload or not
 
 --------------------------------------------------------------------------
 
@@ -604,6 +722,38 @@ So when giving result (result like response time, latency, byte, time etc), it w
 If we check "Generate parent sample", Then it avoid sampler level result. it will just show only combined result which is transaction result
 Also if any failure in any of the sampler, it will fail entire transaction controller
 We can see difference in view result in table, view result tree, summary report etc
+
+-------------------------------------------------------------------------------------
+
+Throughput controller:
+----------------------
+
+Used to certain different percentage of total RPS in different API's
+Let say we have 3 different API's, We need 1st api needs to called 50% rps, 2nd api needs to called 30% and 3rd api needs to called 20%,
+Then we add 3 throughput controller with different percentage(50%,30%,20) of rps and will give the sample request under that.
+Now it should call the RPS with given percentage.
+We can give throughput in percentage. We can also directly give the number of rps instead of percentage. 
+
+
+
+---------------------------------------------------------------------------------------
+
+Http cookie manager:
+------------------
+If we wanted to clear the cookie for every iteration, then we can http cookie manager.
+We can either check the  box to clear. if not, it wont be cleared
+It has few more other options as well
+
+----------------------------------------------------------------------------------------
+
+To view jmeter logs
+--------------------
+We can view jmeter logs by clicking yellow color i button in right top 
+
+
+----------------------------------------------------------------------------------------
+
+
 
 
 ----------------------------------------------------------------------------------------------------------------------------
