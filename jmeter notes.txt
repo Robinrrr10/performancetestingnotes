@@ -590,6 +590,25 @@ isTestPlan=false     //this will merge into our existing script
 
 
 
+OTHER NOTES
+-----------
+-----------
+-----------
+
+Transaction controller:
+----------------------
+
+This is used to group the result of sampler.
+We can add more http sampler under Transaction controller.
+So when giving result (result like response time, latency, byte, time etc), it will also give transaction controller result which is sum of all sampler results and give as one result. But it will also has sampler level result
+If we check "Generate parent sample", Then it avoid sampler level result. it will just show only combined result which is transaction result
+Also if any failure in any of the sampler, it will fail entire transaction controller
+We can see difference in view result in table, view result tree, summary report etc
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 
