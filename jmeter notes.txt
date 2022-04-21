@@ -313,6 +313,60 @@ We also have FTP request default, this we can use if we know we are going to use
 
 //To manually transfering we use tool like filezila  //We can double verify by this tool whether file has been copied or upload or not
 
+
+-----------------------------------------------------------------------
+
+Tutorial 9: Testing web services ( API )
+---------------------------------------
+
+Two different web services
+1. REST API
+2. SOUP API
+
+REST API:
+
+Add HTTP request in thread to give api details.
+Give protocol. By default it will take http
+Give server name or ip. Give hostname or baseurl or ip address of the api here
+Method: Give GET or POST or PUT or  other method here
+Give enpoints in path
+If it has query param, then in parameter, click add button add parameter and value and give
+If it has body, give body as well
+
+
+SOUP API:
+
+Add SOAP/XML-RPC request in thread to give soup api detail.
+Give url of soup api
+Give soupaction url in soupaction field. Send SOAPaction should be checked
+In SOAP/XML-RPC data, add SOAP request body.
+Thats it
+
+We can also give url of rest api in soup/xml-RPC if  it has only url with  get method. Just uncheck Send SOAPaction if we add REST API url
+
+
+------------------------------------
+
+Tutorial 10: Adding assertion for JDBC test
+------------------------------------------
+
+tutorial 10 is continouation of tutorial 6
+
+To save result of mysql query, 
+Go to JDBC request sampler, there below we can see Variable names, Add some variables names which we wanted to save the query result.
+Given number of variable names should be equal to number of column in query result. It can have different column name. It is not mandatory to have exactly same name
+Eg:
+id,name,address       //If we wanted to ingore, give atleast comma. If I wanted ingore name give like eg. Eg: id,,address
+This will map to the column and store all column values
+
+Now add response assertion. 
+Select Jmeter variable,
+Now give the variable name then underscore row number.  syntax: variablename_rownumber
+Eg: If I wanted to validate address in 3rd row give like below
+address_3       //This will give value of 3 row
+now we can give the value in pattern
+Thats it
+
 --------------------------------------------------------------------------
 
 Tutorial - 11
