@@ -782,11 +782,28 @@ We can see difference in view result in table, view result tree, summary report 
 Throughput controller:
 ----------------------
 
-Used to certain different percentage of total RPS in different API's
+Used to allocat different percentage of total RPS in different API's
 Let say we have 3 different API's, We need 1st api needs to called 50% rps, 2nd api needs to called 30% and 3rd api needs to called 20%,
 Then we add 3 throughput controller with different percentage(50%,30%,20) of rps and will give the sample request under that.
 Now it should call the RPS with given percentage.
 We can give throughput in percentage. We can also directly give the number of rps instead of percentage. 
+
+
+Without Throughput controller::
+Eg: Lets say in thread, users are given 10 and rampup time is given 2 and there are two different http request(Request 1, Request 2) sampler.
+When running.
+Request 1 will runs 10 users in 2 sec
+Request 2 will runs 10 users in same 2 sec
+Total=                20 users in 2 sec
+If no throughput controller, users in thread will be use 100% in all available sampler
+
+With Throughput controller:: Request 1 is under throughput controller with 70% and Request 2 is under throughput controller with 30%
+Eg: Lets say in thread, users are given 10 and rampup time is given 2 and there are two different http request(Request 1, Request 2) sampler.
+When running.
+          Request 1 will runs 7 users in 2 sec
+Parallely Request 2 will runs 3 users in same 2 sec
+Total=                        10 users in 2 sec
+If throughput controller is there, then users in thread will divide 100% into given throughput percentage of each sampler
 
 
 
