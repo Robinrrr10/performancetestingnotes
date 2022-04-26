@@ -859,9 +859,10 @@ Random controller:
 -----------------
 Add -> Logic controller -> Random controller
 
-Mostly the http requests inside the thread will be called sequencially. To call randomly we will use random controller.
+It will call the Http request randomly.
+There can be multiple samplers inside random controller. But at a time it will randomly pick only one and call that
 
-To call the api random in the thead, we can use Random controller and can add all http request inside the random controller. So whatever http request is inside, it will call randomly
+At a time it will pick one sampler randomly and call that sampler
 
 
 ----------------------------------------------------------------------------------------
@@ -876,14 +877,30 @@ This is just to container for requests. thats it
 -----------------------------------------------------------------------------------------------------------------
 
 
+Random order controller:
+------------------------
+Add -> Logic controller -> Random order controller
+
+It will call all sampler in random order controller.
+It can have multiple sampler inside random order controller. It will call the api's, but in random order in each time
+
 
 
 ----------------------------------------------------------------------------------------------------------------------------
 
 
+Random controller vs Random order controller:
+---------------------------------------------
 
 
+Random controller:
+Amount multiple sampler at a time it will pick only one sampler randomly and call that sampler. Eg: If there are 4 sampler inside random controller, it will randomly pick any one of the sampler and call at a time
 
+Random order controller:
+It will call all sampler at same in random order each time. Eg: If there are 4 sampler inside random order controller, it will call all 4 sampler in random order each time
+
+
+-------------------------------------------------------------------------------------------------------------------------------
 
 
 
