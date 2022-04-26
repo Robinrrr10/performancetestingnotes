@@ -824,6 +824,25 @@ We can view jmeter logs by clicking yellow color i button in right top
 
 ----------------------------------------------------------------------------------------
 
+Counter:
+---------
+It is available in Add -> Config Element -> counter
+
+Counter will give the variable which will increase the count for each iteration.
+We can give starting value //Whether it should start with 0 or 1 or any other value
+We can have increamenting value. //Whether it should increase by 1 or 2 or any number.
+We can have maximum value. //Give maximum value here. After maximum value, again it will start from first if user count is more than maximum value. 
+Number format. //It is optional. If we not specify anything, it will give the number. If give something, it will give in that format. Eg: ram_000 . It will give ram_001 for first iteration, then ram_002 for second iteration and so on
+Exportated variable. Give the new variable name here. Eg: mycount. Then we can use ${mycount} in any of the script
+
+
+--------------------------------------------------------------------------------
+
+
+
+
+--------------
+
 
 
 
