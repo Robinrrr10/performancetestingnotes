@@ -838,10 +838,42 @@ Exportated variable. Give the new variable name here. Eg: mycount. Then we can u
 
 --------------------------------------------------------------------------------
 
+JSON Extrator
+-----------
+Add -> Post processors -> JSON Extrator
 
 
+It is used to take some value from json response.
 
---------------
+Name of created varaiables: id; name; salary   //We can give new variables names here. It will be seperated by semicolon ;
+JSON Path expression: $.id; $.data.username; $.payment[0].price //$ is root. To fetch id from root Eg: $.id, To fetch username which is inside data Eg: $.data.username, to fetch from list we will use [index] Eg: $.payment[0].price
+Default values: 001; Ram; 1000
+
+Above fields are mandatory.
+And we should use same number of ; seperator
+
+----------------------------------------------------------------------------------------
+
+
+Random controller:
+-----------------
+Add -> Logic controller -> Random controller
+
+Mostly the http requests inside the thread will be called sequencially. To call randomly we will use random controller.
+
+To call the api random in the thead, we can use Random controller and can add all http request inside the random controller. So whatever http request is inside, it will call randomly
+
+
+----------------------------------------------------------------------------------------
+
+Simple controller:
+-----------------
+Add -> Logic controller -> Simple controller
+
+This controller won't have any logic.
+This is just to container for requests. thats it
+
+-----------------------------------------------------------------------------------------------------------------
 
 
 
