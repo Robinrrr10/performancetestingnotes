@@ -569,6 +569,10 @@ ${__intSum(3,2,result)}                   //here 3 and 2 are added and stored in
 
 options->function helper dialog box -> choose the function -> help    //to know about the any functions 
 
+Few functions:
+--------------
+${__time(dd_MM_yyyy_HH_mm_ss_SSS)     //This will give current time with required format
+
 
 
 
@@ -854,6 +858,19 @@ And we should use same number of ; seperator
 
 ----------------------------------------------------------------------------------------
 
+JSON assertion:
+--------------
+Add -> Assertion -> JSON assertion.
+
+We can assert json value with this json assertion.
+Assert JSON path exists:  $.data.result.name //Give the path the field in json response. If it has list, give the index in square bracket Eg:  $.data.result[0].name
+Additionally assert value:  //This should be checked. Then only it will validate the value
+Expected value:    //Give expected value here
+Expect null:   //If null value is expected, check this
+Invert assertion:   //This is revese of above assertion. If it is checked, it will check whether the value is not present or not
+
+----------------------------------------------------------------------------------------
+
 
 Random controller:
 -----------------
@@ -873,6 +890,7 @@ Add -> Logic controller -> Simple controller
 
 This controller won't have any logic.
 This is just to container for requests. thats it
+We can use for organising the apis
 
 -----------------------------------------------------------------------------------------------------------------
 
@@ -902,9 +920,49 @@ It will call all sampler at same in random order each time. Eg: If there are 4 s
 
 -------------------------------------------------------------------------------------------------------------------------------
 
+Loop controller:
+----------------
+If we wanted to run one or set of api's for every thread, we can use this Loop controller.
+We set number of iteration needed only for api's under the loop controller. For every run, this loop will iterate in given number of time.
+We can also give infinite iteration as well
+
+Eg:
+If there are API A and API B in the thread.
+API B is inside loop controller with loop count as 4.
+Then if we run the thread with 1 user with 1 sec rampup time with 1 loop in thread,
+Then API A will run only one time. But API B will run 4 times.
+
+----------------------------------------------------------------------------------------------------------
+
+To generate aggregare report in CSV:
+-----------------------------------
+Download JmeterPluginCMD from https://jmeter-plugins.org/wiki/JMeterPluginsCMD/
+After downloading, create a directory and then move the downloaded zip file inside created directory.
+unzip the file
+It will unzip and show all files
+Paste all files files inside jmeter directory as per path of the directory.   //As per path paste the files
+Then open jmeter.
+Go to options -> plugins manager
+Download below two plugins
+1. Synthesis Report
+2. Command line graph plotting tool
+
+Now run the script and generate jtl or csv file. jtl is recommanded
+Using the csv file we can genereate aggregate report.
+In jmeter bin directory we can see JMeterPluginsCMD.sh file. This file will be used to generate the Aggregate report
+
+Below is the command to generate the report
+
+./JMeterPluginsCMD.sh --tool Reporter --generate-csv pathToGenerateAggregateCsvFile.csv --input-jtl pathOfTheResutlFile.jtl --plugin-type AggregateReport
+
+Eg:
+./JMeterPluginsCMD.sh --tool Reporter --generate-csv ~/tmp/aggre.csv --input-jtl ~/tmp/scresult.jtl --plugin-type AggregateReport
+
+now we will get aggregate report in csv file
 
 
 
+-----------------------------------------------------------------------------------------
 
 
 --------------------------------------------------------------------------------------------
