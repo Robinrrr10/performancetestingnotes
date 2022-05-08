@@ -964,6 +964,88 @@ now we will get aggregate report in csv file
 
 -----------------------------------------------------------------------------------------
 
+Distributed load testing in jmeter or Remote testing or running in master slave model:
+-------------------------------------------------------------------------------------
+When we wanted to create large number of load and if one system not able to produce the load because of CPU and memory limits, we will use  multiple system to produce the load
+When we wanted the api needs to called from different system, then we use multiple system to produce the load
+We can run laod testing in multiple slave system and get a single result in master.
+It will work as master slave model
+
+
+Pre-request:
+1. Same version of jmeter needs to be used in master and all slaves
+2. Good if we use same version of java in master and all slaves
+3. Master and slave should able to communicate each other. Better if we use in same network. 
+4. Open port 4000 and 1099 in slave machine. Both ports should be opened. Else it wont be able to communicate. 1099 is default port number where master can reach the slave machine. 4000 is port number where the jmeter-server will run 
+
+
+
+In Master:
+Step 1:
+Open jmeter.properties which is inside bin directory
+Enable remote_hosts if it is commanded
+Add slave ip address //If we plan to use master machine also for generating load, then give 127.0.0.1 as well
+Eg:
+remote_hots=192.168.18.130  //If we use multiple slave machine, then add all slave ips by comma seperator. Eg: remote_hots=192.168.18.130,192.168.18.132,192.168.18.145    //We can also give port number remote_hots=192.168.18.130:1099,192.168.18.132:1099,192.168.18.145:1099
+
+Step 2:
+In same jmeter.properties, Uncommand server.rmi.ssl.disable, give value as true
+Eg:
+server.rmi.ssl.disable=true
+
+
+In Slave:
+Step 1:
+Open jmeter.properties which is inside bin directory
+Add the port number where it wanted to run. If it is commented, uncommand this. Mostly go with 4000 port which is default
+Eg:
+server.rmi.localport=4000             //In this port, slave will run jmeter-server. Open this 4000 port  
+//If this port is not open, then open this port using firewall-cmd command
+
+Step 2:
+In same jmeter.properties, Uncommand server.rmi.ssl.disable, give value as true
+Eg:
+server.rmi.ssl.disable=true
+
+
+Run below command to start jmeter-server in Slave:
+./jmeter-server -Djava.rmi.server.hostname=slaveipaddress
+Eg:
+./jmeter-server -Djava.rmi.server.hostname=192.168.18.130
+
+
+Open jmeter Master using below command:
+./jmeter.sh -Djava.rmi.server.hostname=masteripaddress
+Eg:
+./jmeter.sh -Djava.rmi.server.hostname=192.168.18.1
+
+
+To run in remote:
+Run-> Remote start -> Select ip address of machine where it wanted to run the load testing
+Run-> Remote start All  //To in all machine
+
+
+To run in remote in Non GUI mode:
+./jmeter.sh -Djava.rmi.server.hostname=masteripaddress -n -t sampletest.jmx -l result.csv -R slaveipaddress
+Eg:
+./jmeter.sh -Djava.rmi.server.hostname=192.168.18.1 -n -t sampletest.jmx -l result.csv -R 192.168.18.130
+
+Eg:   //Give ips of multiple slave machine like below if we use more slave machines
+./jmeter.sh -Djava.rmi.server.hostname=192.168.18.1 -n -t sampletest.jmx -l result.csv -R 192.168.18.130,192.168.18.129,192.168.18.140
+
+
+
+NOTE:
+It will run with given users in all node.
+Eg: 
+If we give 50 as user and if there is 3 machine, then it will run 50 in machine 1, 50 in machine 2 and 50 in machine 3.
+Totally 150. So we need to careful while giving the users.
+It will parallelly run the same users in all slaves. so we should give based on that. If wanted to give 50. Then give 17 users. so 17+17+17=51 users
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
 
 --------------------------------------------------------------------------------------------
 
