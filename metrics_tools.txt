@@ -1,0 +1,41 @@
+Metrics Tools
+-------------
+-------------
+
+
+
+netdata:
+--------
+netdata is a super tool which collects almost all the metrics.
+It has metrics of CPU usage, memory usage, network usage, disk usage and many more.
+It is open source.
+Easy to install.
+
+github link:
+https://github.com/netdata/netdata
+
+above github link has clear documentation.
+Also it has easy installation step.
+
+Tried. It is working awesome
+
+
+
+Installation:     //IMPORTANT: Read above github link for recent changes in installation.
+
+Used below command to setup:
+
+wget -O /tmp/netdata-kickstart.sh https://my-netdata.io/kickstart.sh && sh /tmp/netdata-kickstart.sh
+
+Then open a port using below command:
+firewall-cmd --add-port=19999/tcp --permanent
+
+firewall-cmd --reload
+
+
+Open browser and give below
+ipaddress:19999
+Eg:
+http://192.168.18.129:19999
+
+-----------------------------------------------------------
