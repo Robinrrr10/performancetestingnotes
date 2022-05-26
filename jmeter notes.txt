@@ -1082,7 +1082,62 @@ Now run with same command master and slave same as in method 1
 ----------------------------------------------------------------------------------------------------------------------------
 
 
---------------------------------------------------------------------------------------------
+
+Property file:
+------------
+We can give few of the values in property file and can give point this this file when running in non GUI mode
+
+In script we will write like below in place of input
+
+${__property(keyname)}
+or
+${__P(keyname, defaultvalue)}
+
+Eg:
+${__property(usercount)}
+${__property(rampuptime)}
+${__property(noofloop)}
+
+Eg:
+${__P(usercount, 5)}
+${__P(rampuptime, 3)}
+${__P(noofloop, 1)}
+
+We will create a file with filename.properties and content like below
+usercount=10
+rampuptime=60
+noofloop=2
+
+File name should have extension .properties
+filename.properties
+Eg:
+myvalues.properties
+
+When running we will give -p for point the property file
+
+Eg:
+jmeter.sh -n -t script.jmx -p propertyfile.properties -l report.csv
+
+Eg:
+jmeter.sh -n -t allscripts/script.jmx -p allconfig/propertyfile.properties -l report.csv
+
+We can also give values when running in command
+Eg:
+jmeter.sh -n -t allscripts/script.jmx -l report.csv -Jusers=10 -Jtime=60 -Jloop=2
+
+
+
+When running in distributed mode in master slave we should give -Gfilename.properties   //Then only master will push the script to slave along with this value
+jmeter.sh -n -t script.jmx -Gpropertyfile.properties -l report.csv -Rslav1ip,slave2ip
+
+jmeter.sh -n -t sampletest.jmx -G/home/config/myconf.properties -l result.csv -Djava.rmi.server.hostname=192.168.18.1 -R 192.168.18.129,192.168.18.130
+
+We can also give values in command when running in distributed mode using same -Gkey=value
+Eg:
+jmeter.sh -n -t sampletest.jmx -G/home/config/myconf.properties -Gusers=30 -Gtime=60 -Gloopcount=2 -l result.csv -Djava.rmi.server.hostname=192.168.18.1 -R 192.168.18.129,192.168.18.130
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
