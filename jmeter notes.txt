@@ -964,8 +964,11 @@ now we will get aggregate report in csv file
 
 -----------------------------------------------------------------------------------------
 
-Distributed load testing in jmeter or Remote testing or running in master slave model:
+Distributed load testing in jmeter or Remote testing or running in master slave model: 
 -------------------------------------------------------------------------------------
+
+Method 1:
+---------
 When we wanted to create large number of load and if one system not able to produce the load because of CPU and memory limits, we will use  multiple system to produce the load
 When we wanted the api needs to called from different system, then we use multiple system to produce the load
 We can run laod testing in multiple slave system and get a single result in master.
@@ -1042,6 +1045,38 @@ If we give 50 as user and if there is 3 machine, then it will run 50 in machine 
 Totally 150. So we need to careful while giving the users.
 It will parallelly run the same users in all slaves. so we should give based on that. If wanted to give 50. Then give 17 users. so 17+17+17=51 users
 
+-----
+
+Method 2:
+---------
+
+Give all above configuration here as well. then follow below
+
+Go jmeter/bin of master and run create-rmi-keystore.sh or create-rmi-keystore.bat
+Eg:
+./create-rmi-keystore.sh
+
+Give the details it required when it asks
+Then finally give password also.    //Initially try with password "changeit"
+
+Once done it will generate rmi_keystore.jks file in jmeter/bin
+Copy rmi_keystore.jks and paste in all slaves machine in jmeter/bin.
+
+Then open jmeter.properties and give values as below in master and all slave machines. Password should be same as give password else give changeit
+
+
+server.rmi.ssl.keystore.type=JKS
+server.rmi.ssl.keystore.file=rmi_keystore.jks
+server.rmi.ssl.keystore.password=changeit
+server.rmi.ssl.keystore.alias=rmi
+server.rmi.ssl.truststore.type=JKS
+server.rmi.ssl.truststore.file=rmi_keystore.jks
+server.rmi.ssl.truststore.password=changeit
+server.rmi.ssl.disable=false
+
+
+
+Now run with same command master and slave same as in method 1
 
 
 ----------------------------------------------------------------------------------------------------------------------------
